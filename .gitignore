@@ -1,1 +1,35 @@
 .venv
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.egg-info/
+*.env
+
+# Flask
+instance/
+.webassets-cache
+
+# Virtual Environment
+venv/
+env/
+env.bak/
+venv.bak/
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+pyrightconfig.json
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Migrations
+src/migrations/
+*.pyc
