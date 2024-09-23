@@ -1,7 +1,7 @@
 from datetime import datetime
 import enum
 import uuid
-from . import db
+from app import db
 
 class Status(enum.Enum):
     LIVE = "live"
@@ -28,7 +28,13 @@ class Auction(db.Model):
     # Relationship to Item model
     item = db.relationship('Item', back_populates="auction")
 
-
+    # def to_dict(self):
+    #     return {
+    #         "id": self.id,
+    #         "status": self.status.value,  # Convert Enum to string
+    #         "reserve_price": self.reserve_price,
+    #         "seller": self.seller,
+    #         }
 
 class Item(db.Model):
     __tablename__ = 'items'

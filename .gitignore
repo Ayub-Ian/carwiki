@@ -31,5 +31,5 @@ pyrightconfig.json
 Thumbs.db
 
 # Migrations
-src/migrations/
+**/migrations/
 *.pyc

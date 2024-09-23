@@ -12,4 +12,6 @@ def create_app(config_class='config.DevelopmentConfig'):
     db.init_app(app)
     migrate.init_app(app, db)
 
+    from app.routes.auction import routes
+    app.register_blueprint(routes, url_prefix='/api')
     return app
