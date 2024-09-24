@@ -3,9 +3,14 @@ from flask import request
 from pymongo.collection import Collection
 from app.models import Item
 
-from app import pymongo
+# from app import pymongo
 
-items: Collection = pymongo.db.items
+from pymongo import MongoClient
+client = MongoClient("mongodb://root:mongopw@localhost:27017/")
+db = client["SearchDb"]
+
+items: Collection = db.items
+
 
 
 class SearchResource(Resource):
@@ -18,6 +23,6 @@ class SearchResource(Resource):
 
         items_count = items.count_documents({})
         return {
-            "recipes": [Item(**doc).to_json() for doc in cursor],
+            "data": [Item(**doc).model_dump(mode='json') for doc in cursor],
             "pageCount": per_page,
         }, 200

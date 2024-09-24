@@ -1,4 +1,4 @@
-class Config:
+class Config(object):
     MONGO_URI = 'mongodb://root:mongopw@localhost:27017/SearchDb'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG = False
