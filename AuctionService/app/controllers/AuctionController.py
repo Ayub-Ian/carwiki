@@ -2,8 +2,9 @@ import inflection
 from flask import request
 from flask_restful import Resource
 
+from app import db, manager
 from app.models import Auction, Item
-from app import db
+
 
 class AuctionResource(Resource):
     def get(self, auction_id):
@@ -78,14 +79,13 @@ class AuctionsResource(Resource):
         try:
             db.session.add(auction)
             db.session.commit()
+
+            manager.publish({
+                "id": 120378
+            }, "AuctionSvc.AuctionCreated", "auction_created")
+
             return {"message": f"successfully created auction {auction.id}"}
          
         except Exception as e:
             db.session.rollback()
             return {"message": str(e)}, 500
-
-
-
-
-
-        return {"data": entities}, 201

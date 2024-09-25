@@ -1,9 +1,11 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from services.contract import ExchangeManager
 
 db = SQLAlchemy()
 migrate = Migrate()
+manager = ExchangeManager()
 
 def create_app(config_class='config.DevelopmentConfig'):
     app = Flask(__name__)
@@ -14,4 +16,6 @@ def create_app(config_class='config.DevelopmentConfig'):
 
     from app.routes.auction import routes
     app.register_blueprint(routes, url_prefix='/api')
+
+    manager.declare_exchange('AuctionSvc.AuctionCreated', 'fanout')
     return app
