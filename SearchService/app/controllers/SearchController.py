@@ -24,5 +24,5 @@ class SearchResource(Resource):
         items_count = items.count_documents({})
         return {
             "data": [Item(**doc).model_dump(mode='json') for doc in cursor],
-            "pageCount": per_page,
+            "pageCount": items_count,
         }, 200

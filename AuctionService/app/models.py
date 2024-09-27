@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime,timezone
 import enum
 import uuid
 from app import db
@@ -14,13 +14,13 @@ class Auction(db.Model):
     __tablename__ = 'auctions'
 
     id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))  # GUID
-    reserve_price = db.Column(db.Integer, default=0)
+    reserve_price = db.Column(db.Integer, nullable=False, default=0)
     seller = db.Column(db.String(100), nullable=False)  # Username from claim
     winner = db.Column(db.String(100), nullable=True)  # Username of winner
-    sold_amount = db.Column(db.Integer, nullable=True)  # Optional
-    current_high_bid = db.Column(db.Integer, nullable=True)  # Optional
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)  # Default to UTC
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    sold_amount = db.Column(db.Integer, nullable=False , default=0)  # Optional
+    current_high_bid = db.Column(db.Integer, nullable=False, default=0)  # Optional
+    created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))  # Default to UTC
+    updated_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
     auction_end = db.Column(db.DateTime, nullable=False)  # Must specify
     status = db.Column(db.Enum(Status), default=Status.LIVE)  # Enum for status
     item_id = db.Column(db.String, db.ForeignKey('items.id',ondelete='CASCADE'), nullable=False)  # Foreign key to Item

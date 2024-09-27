@@ -15,9 +15,9 @@ class AuctionSchema(Schema):
     mileage = fields.Method("get_item_mileage")
     imageUrl = fields.Method("get_item_image_url")
     status = fields.Method("get_auction_status")
-    reservePrice = fields.Float()
-    soldAmount = fields.Float()
-    currentHighBid = fields.Float()
+    reservePrice = fields.Int(attribute="reserve_price")
+    soldAmount = fields.Int(attribute="sold_amount")
+    currentHighBid = fields.Int(attribute="current_high_bid")
 
     def get_created_at(self, auction):
         return auction.created_at.isoformat()

@@ -67,6 +67,8 @@ def load_data_from_json(file_path: str) -> List[Item]:
 # Function to check if collection is empty and seed data
 def seed_data(collection, file_path: str):
     try:
+        collection.delete_many({})
+
         if collection.count_documents({}) == 0:
             print("No data found in collection, seeding data...")
             items = load_data_from_json(file_path)
