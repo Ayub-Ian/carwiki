@@ -18,4 +18,6 @@ def create_app(config_class='config.DevelopmentConfig'):
     app.register_blueprint(routes, url_prefix='/api')
 
     manager.declare_exchange('AuctionSvc.AuctionCreated', 'fanout')
+    manager.declare_exchange('AuctionSvc.AuctionDeleted', 'fanout')
+
     return app
