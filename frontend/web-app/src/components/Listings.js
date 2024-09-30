@@ -13,10 +13,12 @@ async function getAuctions() {
 
 export default async function AuctionListings() {
     const data = await getAuctions()
+
+    console.log(data)
     return (
         <>
                             <div className='grid grid-cols-4 gap-6'>
-                        {data.data.map(auction => (
+                        {data.results.map(auction => (
                             <AuctionCard auction={auction} key={auction.id} />
                         ))}
                     </div>

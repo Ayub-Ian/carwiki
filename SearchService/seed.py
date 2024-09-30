@@ -42,7 +42,7 @@ def connect_to_mongo(uri: str, db_name: str):
 # Function to create indexes
 def create_indexes(collection):
     try:
-        collection.create_index([('make', ASCENDING), ('color', ASCENDING), ('model', ASCENDING)])
+        collection.create_index([('make', 'text'), ('color', 'text'), ('model', 'text')])
         print("Indexes on 'Make', 'Color', and 'Model' created!")
     except Exception as e:
         print(f"Failed to create indexes: {e}")

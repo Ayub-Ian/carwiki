@@ -51,7 +51,7 @@ services:
       - "8002:8002"
       - "8443:8443"
     extra_hosts:
-      - "host.docker.internal=172.17.0.1"
+      host.docker.internal: "172.17.0.1"
 
 
 
