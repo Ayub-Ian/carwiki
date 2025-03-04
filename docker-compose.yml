@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  auction_service_db:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=$AS_MYSQLDB_ROOT_PASS
+      - MYSQL_USER=$AS_MYSQLDB_USER
+      - MYSQL_PASSWORD=$AS_MYSQLDB_USER_PASS
+      - MYSQL_DATABASE=$AS_MYSQLDB_DATABASE
+    ports:
+      - $AS_MYSQLDB_LOCAL_PORT:$AS_MYSQLDB_DOCKER_PORT
