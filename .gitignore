@@ -3,3 +3,10 @@
 *.iws
 *.iml
 *.ipr
+
+### VS Code ###
+.vscode/
+.DS_Store
+
+### Environment files ###
+.env/
