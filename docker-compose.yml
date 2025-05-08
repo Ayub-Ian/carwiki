@@ -1,12 +1,33 @@
-version: '3'
+version: "3.8"
 
 services:
-  auction_service_db:
-    image: mysql
+  mysql:
+    image: mysql:latest
+    container_name: auction_service_db
     environment:
-      - MYSQL_ROOT_PASSWORD=$AS_MYSQLDB_ROOT_PASS
-      - MYSQL_USER=$AS_MYSQLDB_USER
-      - MYSQL_PASSWORD=$AS_MYSQLDB_USER_PASS
-      - MYSQL_DATABASE=$AS_MYSQLDB_DATABASE
+      - MYSQL_ROOT_PASSWORD=${AS_MYSQLDB_ROOT_PASS}
+      - MYSQL_USER=${AS_MYSQLDB_USER}
+      - MYSQL_PASSWORD=${AS_MYSQLDB_USER_PASS}
+      - MYSQL_DATABASE=${AS_MYSQLDB_DATABASE}
     ports:
-      - $AS_MYSQLDB_LOCAL_PORT:$AS_MYSQLDB_DOCKER_PORT
+      - "${AS_MYSQLDB_LOCAL_PORT}:${AS_MYSQLDB_DOCKER_PORT}"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:latest
+    container_name: search_service_db
+    ports:
+      - "${SS_MONGODB_LOCAL_PORT}:${SS_MONGODB_DOCKER_PORT}"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${SS_MONGO_NAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${SS_MONGO_PASS}
+      - MONGO_INITDB_DATABASE=${SS_MONGO_DB}
+    restart: unless-stopped
+    volumes:
+      - mongodata:/data/db
+
+volumes:
+  mongodata:
+  mysql_data:
