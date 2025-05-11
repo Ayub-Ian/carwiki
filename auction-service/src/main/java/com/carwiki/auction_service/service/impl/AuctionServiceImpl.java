@@ -4,12 +4,14 @@ import com.carwiki.auction_service.dto.AuctionDto;
 import com.carwiki.auction_service.dto.CreateAuctionDto;
 import com.carwiki.auction_service.entity.Auction;
 import com.carwiki.auction_service.entity.Item;
+import com.carwiki.auction_service.event.AuctionCreated;
 import com.carwiki.auction_service.exception.ResourceNotFoundException;
 import com.carwiki.auction_service.mapper.AuctionMapper;
 import com.carwiki.auction_service.mapper.CreateAuctionMapper;
 import com.carwiki.auction_service.repository.AuctionRepository;
 import com.carwiki.auction_service.repository.ItemRepository;
 import com.carwiki.auction_service.service.AuctionService;
+import com.carwiki.auction_service.service.EventPublisherService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,7 @@ public class AuctionServiceImpl implements AuctionService {
 
     private AuctionRepository auctionRepository;
     private ItemRepository itemRepository;
+    private EventPublisherService eventPublisherService;
 
 
     @Override
@@ -37,7 +40,11 @@ public class AuctionServiceImpl implements AuctionService {
         Item newitem = CreateAuctionMapper.mapToItem(createAuctionDto, savedAuction);
         Item savedItem = itemRepository.save(newitem);
 
-        return AuctionMapper.maptoAuctionDto(savedAuction, savedItem);
+        AuctionDto auctionDto = AuctionMapper.maptoAuctionDto(savedAuction, savedItem);
+        AuctionCreated event = new AuctionCreated(auctionDto);
+        eventPublisherService.publishAuctionCreatedEvent(event);
+
+        return auctionDto;
     }
 
     @Override
