@@ -25,5 +25,5 @@ public class SearchParams {
     private int pageNumber = 1;
 
     @Schema(description = "Number of items per page", example = "10", minimum = "1")
-    private int pageSize = 10;
+    private int pageSize = 20;
 }
