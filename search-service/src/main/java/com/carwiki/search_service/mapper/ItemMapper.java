@@ -24,5 +24,24 @@ public class ItemMapper {
         dto.setYear(item.getYear());
         return dto;
     }
-
+    public static Item mapToItem(ItemDto dto) {
+        Item item = new Item();
+        item.setId(dto.getId());
+        item.setColor(dto.getColor());
+        item.setMake(dto.getMake());
+        item.setMileage(dto.getMileage());
+        item.setSeller(dto.getSeller());
+        item.setAuctionEnd(dto.getAuctionEnd());
+        item.setCreatedAt(dto.getCreatedAt());
+        item.setCurrentHighBid(dto.getCurrentHighBid());
+        item.setImageUrl(dto.getImageUrl());
+        item.setModel(dto.getModel());
+        item.setWinner(dto.getWinner());
+        item.setUpdatedAt(dto.getUpdatedAt());
+        item.setReservePrice(dto.getReservePrice());
+        item.setSoldAmount(dto.getSoldAmount());
+        item.setStatus(dto.getStatus());
+        item.setYear(dto.getYear());
+        return item;
+    }
 }
